@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <script>
+
+    //javascript ajax call
+        // var xhtp = new XMLHttpRequest();
+        // xhtp.open("GET","https://jsonplaceholder.typicode.com/todos/1",true);
+        // xhtp.send();
+        // xhtp.onreadystatechange = function(){
+        //         if(this.readyState == 4 && this.status ==200)
+        //         {
+        //             console.log(xhtp.responseText)
+        //         }
+        // }
+
+    //ajax using jquery
+            // $.ajax({
+            //     method:'GET',
+            //     url:'https://jsonplaceholder.typicode.com/todos/1',
+            //     datatype:'json',
+            //     complete:function()
+            //     {
+            //         console.log("request completed ");
+            //     },
+            //     success:function(data){
+            //         console.log("suucesss ")
+            //        for (const key in data) {
+            //            if (Object.hasOwnProperty.call(data, key)) {
+            //                const element = data[key];
+            //                console.log(element)
+                           
+            //            }
+            //        }
+                   
+            //     },
+            //     beforeSend:console.log("before"),
+            //     error:function(err)
+            //     {console.log("error")
+            //          }
+
+            // })
+
+           // $.get('https://jsonplaceholder.typicode.com/todos/1').then(res => {console.log("complete "+res.userId)})
+            $.getJSON('https://jsonplaceholder.typicode.com/todos/1').then(res => {console.log(res)}) 
+        
+
+    </script>
+</body>
+</html>

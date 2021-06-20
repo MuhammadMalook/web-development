@@ -1,2 +1,2 @@
-const printDate = require('./myModule');
-console.log(printDate.printDate());
+const printDate =  require('http');
+console.log(printDate);

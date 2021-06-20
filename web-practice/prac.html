@@ -9,6 +9,29 @@
 </head>
 <body>
     <script>
+    //in javascript : DOMContentLoaded   
+    // document.addEventListener("DOMContentLoaded",function(){
+    //     console.log("DOMContentLoaded done!")
+    // })
+
+    //DOMContentLoaded  in jquery
+    $(document).ready(function()
+    {
+        console.log("DOMContentloaded done!")
+    })
+
+   
+    
+    //onload in javascript
+    // window.onload = function()
+    // {
+    //     console.log("Load done!")
+    // }
+
+     //onload in jquery
+     $(window).on("load",function(){
+        console.log("load done!")
+    })
 
     //javascript ajax call
         // var xhtp = new XMLHttpRequest();
@@ -49,8 +72,14 @@
             // })
 
            // $.get('https://jsonplaceholder.typicode.com/todos/1').then(res => {console.log("complete "+res.userId)})
-            $.getJSON('https://jsonplaceholder.typicode.com/todos/1').then(res => {console.log(res)}) 
-        
+           // $.getJSON('https://jsonplaceholder.typicode.com/todos/1').then(res => {console.log(res)}) 
+            function getData()
+            {
+                return new Promise((resolve,reject)=>{
+                    fetch("https://randomuser.me/api/").then(res=> res.json()).then(res => {resolve (res.results[0].gender)});
+                })
+            }
+            getData().then(res=>console.log(res)).catch(res=>console.log(res))
 
     </script>
 </body>

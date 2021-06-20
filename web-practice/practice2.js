@@ -250,11 +250,99 @@ console.log(arr)
 //used to achieve asynchronous behavior.
 //since javascript has synchronous behavior.
 
-let data = setInterval(
-    function f1()
-    {
-        return 2*5;
-    },3000);
-console.log(5*data);
+// let id= setInterval(
+//     function f1()
+//     {
+//         return 2*5;
+//     },3000);
+// console.log(5*data);
+// clearInterval(id)
+
+
+function buycake(cake)
+{
+    return new Promise((resolve,reject)=>{
+        if(cake=="chocolate")
+        {
+            resolve("done!")
+        }
+        else
+        {
+            reject("i will not let you celebrate my birthday")
+        }
+    })
+}
+buycake("chocolate").then(res=>console.log(res)).catch(res=>console.log(res))
+
+//template litterals or backticks (``)
+let Name="Malook"
+console.log(`My name is ${Name}`)
+
+//arrow functions
+let ar = ()=>{
+    console.log("arrow")
+}
+ar()
+
+
+//enhanced object literal
+let obj = {Name:"Malook",Age:21}
+console.log(obj.Name)
+//Now using enhanced literal
+let Name="Malook"
+let age = 20
+let obj = {Name,age}
+console.log(obj.Name)
+
+
+//destructuring
+//object destructring
+let obj = {Name:"Malook",Age:21,Address:{city:"khanpur mahar",district:"ghotki",province:"sindh"},phone:"1234"}
+const {Address:{province}} = obj
+console.log(province)
+
+//array destructuring
+let ar = [1,2,3,4,5,[6,7,8],9,10]
+const [,,,,,[a]] = ar
+console.log(a)
+
+//defualt operator
+function f2(a=1)
+{
+    console.log(a)
+}
+f2(2)
+
+//rest ...
+//spread ...
+
+//spread operator
+let arr1 = [1,2,3,4,5],arr2 = [5,6,7,8]
+console.log(['a','b',...arr1,...arr2])
+
+function b(...x)
+{
+    console.log(x) 
+}
+let arr1 = [1,2,3,4,5]
+b(arr1) //without rest operator // output [[1,2,3,4,5]]
+b(...arr1) //spread operator // output [1,2,3,4,5]
+
+//Generators
+//simple function executes only once 
+//Just like regular function, returns a single value, but generator can be iterate as we want.
+
+function* generator()
+{
+    yield 1,
+    console.log("hello")
+    yield 2,
+    yield 3
+}
+let gen = generator()
+console.log(gen.next())
+console.log(gen.next())
+console.log(gen.next())
+console.log(gen.next())
 
 

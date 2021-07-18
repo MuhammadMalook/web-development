@@ -169,7 +169,17 @@
 
 //const { query } = require('express');
 const express = require('express');
+const mongoose = require('mongoose');
+require('./models/course')
+const Course = mongoose.model('Course');
 
+mongoose.connect("mongodb+srv://malook:PwRH0f3rjASbbfhj@cluster0.4ske2.mongodb.net/malook?retryWrites=true&w=majority",{
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
+.then(result=>console.log('Connected to MongoDB...')).catch(result=>console.log("Failed"))
 
 const courses = require('./Routes/courses');
 const home = require('./Routes/home');
@@ -179,8 +189,9 @@ const app = express()
 app.use(express.json()) //express.json() is the piece of middleware
                         //app.use() is to use that middleware to work with request processing pipeline 
 
-app.use('/api/courses',courses);
-app.use('/',home);
+app.use('/api/courses',courses); //now must use only / as a path in courses file. but url will contain /api/courses at start
+        //any route start with /api/courses will direct to the courses file.
+app.use('/',home); //any route start with / will direct to the courses file.
 
 app.get('/api/numbers',(req,res)=>{
     res.send([1,2,3,4])
@@ -202,6 +213,6 @@ app.get('/api/posts/:year/:month', (req,res)=>{ //year and month are route param
 
 
 
-app.listen(3000,()=>console.log('listening to port'))
+app.listen(3000,()=>console.log('listening to port 3000...'))
 
 

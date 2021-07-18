@@ -1,5 +1,8 @@
 const express = require('express');
 const router = express.Router()
+const mongoose = require('mongoose');
+require('../models/course');
+const Course = mongoose.model('Course');
 
 
 const courses = [
@@ -31,14 +34,21 @@ router.get('/:id',(req,res)=>{
 
 //http post request 
 router.post('/',(req,res)=>{
-    const course = {
-        id:courses.length+1,
-        course:req.body.name+(courses.length+1) //for this line to work we have to use middleware function(parsing of json object in body of request) which is router.use(express.json()) // to convert body of the request into json format
-                                //by default express does not provide this parsing
-                                //it populares req.body if there is a json object
-    }
-    courses.push(course);
-    res.send(course)
+    // const course = {
+    //     id:courses.length+1,
+    //     course:req.body.name+(courses.length+1) //for this line to work we have to use middleware function(parsing of json object in body of request) which is router.use(express.json()) // to convert body of the request into json format
+    //                             //by default express does not provide this parsing
+    //                             //it populares req.body if there is a json object
+    // }
+    // courses.push(course);
+    // res.send(course)
+    const course = new Course({
+        name:req.body.name,
+        author:req.body.author,
+        isPublished:req.body.isPub,
+    })
+    course.save().then(result=>res.json({message:"Saved succesfully!"})).catch(result=>console.log(result));
+    //res.send(course);
 })
 
 //updating record using PUT method

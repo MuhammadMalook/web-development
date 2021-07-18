@@ -167,24 +167,21 @@
 //used to build apis
 //no need to make if else condtions for each request.
 
-const { query } = require('express');
+//const { query } = require('express');
 const express = require('express');
+
+
+const courses = require('./Routes/courses');
+const home = require('./Routes/home');
+
+
 const app = express()
 app.use(express.json()) //express.json() is the piece of middleware
                         //app.use() is to use that middleware to work with request processing pipeline 
 
-const courses = [
-    {id:1,course:'course1'},
-    {id:2,course:'course2'},
-    {id:3,course:'course3'}
-]
+app.use('/api/courses',courses);
+app.use('/',home);
 
-app.get('/', (req,res)=>{ //this / represents localhost:3000 url (typing into browser) 
-    res.send('hello')
-})
-app.get('/api/courses',(req,res)=>{  // localhost:3000/api/courses in browser.
-    res.send(courses)
-})
 app.get('/api/numbers',(req,res)=>{
     res.send([1,2,3,4])
 })
@@ -203,60 +200,7 @@ app.get('/api/posts/:year/:month', (req,res)=>{ //year and month are route param
    // res.send(req.query) //{"sortBy":"month"}
 })
 
-//getting a single record based on parameter
-app.get('/api/courses/:id',(req,res)=>{
-   
-    const course = courses.find(c=>c.id===parseInt(req.params.id));
-    if(course)
-    {
-        res.status(200).send(course)
-    }
-    else
-    {
-       return res.status(404).send(`The coures With id ${req.params.id} is not found!`)
-    }
-})
 
-//http post request 
-app.post('/api/courses',(req,res)=>{
-    const course = {
-        id:courses.length+1,
-        course:req.body.name+(courses.length+1) //for this line to work we have to use middleware(parsing of json object in body of request) like app.use(express.json()) // to convert body of the request into json format
-                                //by default express does not provide this parsing
-    }
-    courses.push(course);
-    res.send(course)
-})
-
-//updating record using PUT method
-
-app.put('/api/courses/:id',(req,res)=>{
-    const course = courses.find(c=>c.id === parseInt(req.params.id));
-    if(!course)
-    {
-       return res.status(404).send('The given id does not exist!')
-    }
-    else
-    {
-        //updating if id exist
-        course.course = req.body.name
-        res.send(course)
-    }
-
-})
-
-//deleting record using DELETE() method
-app.delete('/api/course/:id',(req,res)=>{
-    const course = courses.find(c=>c.id=== parseInt(req.params.id));
-    if(!course)
-        return res.status(400).send('Given ID does not exist');
-    else
-        {
-            const index = courses.indexOf(course);
-            courses.splice(index,1)
-            res.send(course)
-        }
-})
 
 app.listen(3000,()=>console.log('listening to port'))
 
